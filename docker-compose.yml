@@ -35,7 +35,6 @@ services:
       retries: 10
   cln:
     build:
-      context: ../../
       dockerfile: cln.Dockerfile
     restart: on-failure
     entrypoint: ["/root/cln/start.sh"]
