@@ -29,7 +29,7 @@ services:
     healthcheck:
       test: [
         "CMD-SHELL",
-        "bitcoin-cli -signet -rpcuser=${BITCOIN_RPCUSER} -rpcpassword=${BITCOIN_RPCPASSWORD} -rpcconnect=127.0.0.1 getblockchaininfo || exit 1"
+        "bitcoin-cli -signet -rpcuser=${BITCOIN_RPCUSER} -rpcpassword=${BITCOIN_RPCPASSWORD} -rpcconnect=127.0.0.1 -rpcport=18443 getblockchaininfo || exit 1"
       ]
       interval: 5s
       timeout: 3s
