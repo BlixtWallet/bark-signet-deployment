@@ -9,8 +9,8 @@
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
-    cd <repository-directory>
+    git clone https://github.com/BlixtWallet/bark-signet-deployment
+    cd bark-signet-deployment
     ```
 
 2.  **Create a `.env` file:**
