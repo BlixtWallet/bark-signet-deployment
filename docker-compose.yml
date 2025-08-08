@@ -8,8 +8,6 @@ services:
       "-printtoconsole",
       "-rpcbind=0.0.0.0",
       "-rpcallowip=0.0.0.0/0",
-      "-zmqpubrawblock=tcp://0.0.0.0:38332",
-      "-zmqpubrawtx=tcp://0.0.0:38333",
       "-rpcport=18443",
       "-fallbackfee=0.00001",
       "-server",
