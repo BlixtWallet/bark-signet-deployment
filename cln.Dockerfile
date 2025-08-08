@@ -15,7 +15,7 @@ ENV RUST_BACKTRACE=1 \
 	CLN_VERSION=25.02.2 \
 	PATH=/root/.cargo/bin:${PATH} \
 	NETWORK=signet \
-	BITCOIN_RPCCONNECT=bitcoind:18443 \
+	BITCOIN_RPCCONNECT=bitcoind:18443
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
 RUN echo "Installing Rust toolchains version ${RUSTUP_TOOLCHAIN_VERSION}..." && \
