@@ -30,7 +30,7 @@ RUN echo "Installing c-lightning hold invoice plugin in /hold/" && \
 	chmod a+x /hold/target/debug/hold
 
 RUN mkdir -p /root/cln/
-ADD ./contrib/docker/cln_start.sh /root/cln/start.sh
+ADD cln_start.sh /root/cln/start.sh
 
 RUN chmod a+x /root/cln/start.sh && \
 	dos2unix /root/cln/start.sh
