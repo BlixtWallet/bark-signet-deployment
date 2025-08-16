@@ -3,7 +3,7 @@ set -e
 
 lightningd --${NETWORK} --log-level=debug --grpc-host=0.0.0.0 \
 	--bitcoin-rpcconnect=${BITCOIN_RPCCONNECT} --bitcoin-rpcuser=${BITCOIN_RPCUSER} --bitcoin-rpcpassword=${BITCOIN_RPCPASSWORD} \
-	--important-plugin=/hold/target/debug/hold --hold-grpc-host=0.0.0.0 --hold-grpc-port=9988 &
+	--important-plugin=/usr/local/bin/hold --hold-grpc-host=0.0.0.0 --hold-grpc-port=9988 &
 LIGHTNINGD_PID=$!
 
 WAIT_FILE="/root/.lightning/${NETWORK}/hold/ca.pem"
@@ -16,8 +16,8 @@ done
 
 echo "Found file ${WAIT_FILE}"
 if [ ! -f "${GEN_MARKER}" ]; then
-	rm /root/.lightning/${NETWORK}/hold/server-key.pem
-	rm /root/.lightning/${NETWORK}/hold/server.pem
+	rm -f /root/.lightning/${NETWORK}/hold/server-key.pem
+	rm -f /root/.lightning/${NETWORK}/hold/server.pem
 	echo "Generating custom server certificate..."
 	cat > /root/.lightning/${NETWORK}/hold/v3.ext <<EOF
 [v3_req]
@@ -56,7 +56,7 @@ EOF
 	echo "Booting"
 	lightningd --${NETWORK} --log-level=debug --grpc-host=0.0.0.0 \
 		--bitcoin-datadir=/root/.bitcoin --bitcoin-rpcconnect=${BITCOIN_RPCCONNECT} --bitcoin-rpcuser=${BITCOIN_RPCUSER} --bitcoin-rpcpassword=${BITCOIN_RPCPASSWORD} \
-		--important-plugin=/hold/target/debug/hold --hold-grpc-host=0.0.0.0 --hold-grpc-port=9988
+		--important-plugin=/usr/local/bin/hold --hold-grpc-host=0.0.0.0 --hold-grpc-port=9988
 else
 	wait ${LIGHTNINGD_PID}
 fi

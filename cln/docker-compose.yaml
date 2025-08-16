@@ -1,0 +1,22 @@
+services:
+  cln:
+    image: niteshbalusu/bark-cln:latest
+    restart: on-failure
+    entrypoint: ["/usr/local/bin/cln_start.sh"]
+    volumes:
+      - /home/noderunner/signet/bitcoin:/root/.bitcoin
+      - /home/noderunner/signet/cln:/root/.lightning
+    environment: 
+      - NETWORK=signet
+      - BITCOIN_RPCCONNECT=${BITCOIN_RPCCONNECT}
+      - BITCOIN_RPCUSER=${BITCOIN_RPCUSER}
+      - BITCOIN_RPCPASSWORD=${BITCOIN_RPCPASSWORD}
+    ports:
+      - "9988:9988"
+      - "9736:9736"
+    networks:
+      - dokploy-network
+
+networks:
+  dokploy-network:
+    external: true
