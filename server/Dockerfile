@@ -20,11 +20,11 @@ RUN apt-get update && \
 # Clone the repository and checkout the correct tag
 RUN git clone https://codeberg.org/ark-bitcoin/bark.git /app
 WORKDIR /app
-RUN git checkout bark-0.0.0-alpha.18
+RUN git checkout server-0.0.0-alpha.19
 
 
 # Install the correct rust target and build for amd64
-RUN cargo build --release --bin aspd
+RUN cargo build --release --bin captaind
 
  
 # Stage 2: Create the final image
@@ -44,14 +44,14 @@ RUN apt-get update && \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy the built binary from the builder stage
-COPY --from=builder /app/target/release/aspd /usr/local/bin/aspd
+COPY --from=builder /app/target/release/captaind /usr/local/bin/captaind
 
 # Copy the start script
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
 # Set environment variables
-ENV ASPD_CONFIG_PATH="/data/aspd/aspd.toml"
+ENV CAPTAIND_CONFIG_PATH="/data/captaind/captaind.toml"
 
 # Set the entrypoint
 ENTRYPOINT /usr/local/bin/start.sh

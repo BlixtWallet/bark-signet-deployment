@@ -3,7 +3,7 @@ services:
     image:
       niteshbalusu/noah-aspd:latest
     volumes:
-      - /home/noderunner/signet/aspd:/data/aspd
+      - /home/noderunner/signet/aspd:/data/captaind
       - /home/noderunner/signet/cln:/data/cln
     ports:
       - "3535:3535"
