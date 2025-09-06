@@ -20,7 +20,7 @@ RUN apt-get update && \
 # Clone the repository and checkout the correct tag
 RUN git clone https://codeberg.org/ark-bitcoin/bark.git /app
 WORKDIR /app
-RUN git checkout server-0.0.0-alpha.19
+RUN git checkout server-0.0.0-alpha.20
 
 
 # Install the correct rust target and build for amd64
