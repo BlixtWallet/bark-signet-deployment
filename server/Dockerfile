@@ -5,28 +5,28 @@ FROM --platform=$BUILDPLATFORM rust:1.88-bullseye AS builder
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
-        libpq-dev \
-        curl \
-        gnupg2 \
-        lsb-release \
-        apt-transport-https \
-        ca-certificates \
-        dos2unix \
-        build-essential \
-        protobuf-compiler \
-        git \
+    libpq-dev \
+    curl \
+    gnupg2 \
+    lsb-release \
+    apt-transport-https \
+    ca-certificates \
+    dos2unix \
+    build-essential \
+    protobuf-compiler \
+    git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Clone the repository and checkout the correct tag
 RUN git clone https://codeberg.org/ark-bitcoin/bark.git /app
 WORKDIR /app
-RUN git checkout server-0.0.0-alpha.20
+RUN git checkout server-0.1.0-beta.1
 
 
 # Install the correct rust target and build for amd64
 RUN cargo build --release --bin captaind
 
- 
+
 # Stage 2: Create the final image
 FROM debian:bullseye-slim
 
@@ -34,13 +34,13 @@ FROM debian:bullseye-slim
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
-        libpq-dev \
-        curl \
-        gnupg2 \
-        lsb-release \
-        apt-transport-https \
-        ca-certificates \
-        dos2unix \
+    libpq-dev \
+    curl \
+    gnupg2 \
+    lsb-release \
+    apt-transport-https \
+    ca-certificates \
+    dos2unix \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy the built binary from the builder stage
