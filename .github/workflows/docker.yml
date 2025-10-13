@@ -2,11 +2,6 @@ name: Docker Image CI
 
 on:
   workflow_dispatch:
-# Temporarily disabled for testing captaind-nightly workflow
-#  push:
-#    branches: [ "main" ]
-#  pull_request:
-#    branches: [ "main" ]
 
 jobs:
   build:

@@ -7,6 +7,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     telnet \
     dos2unix \
+    protobuf-compiler \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Clone the repository and checkout the correct tag
@@ -24,6 +25,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     telnet \
     dos2unix \
+    protobuf-compiler \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy the built binary from the builder stage
