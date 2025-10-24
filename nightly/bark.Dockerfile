@@ -11,7 +11,7 @@ RUN apt-get update && \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Clone the repository and checkout the correct tag
-RUN git clone https://codeberg.org/ark-bitcoin/bark.git /app
+RUN git clone https://gitlab.org/ark-bitcoin/bark.git /app
 WORKDIR /app
 
 RUN cargo build --release --bin bark
