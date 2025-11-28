@@ -1,5 +1,5 @@
 # Use the official Core Lightning image as the base
-FROM elementsproject/lightningd:v25.02.2 AS base
+FROM elementsproject/lightningd:v25.09.1 AS base
 
 # Install necessary runtime dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \

@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM --platform=$BUILDPLATFORM rust:1.88-bullseye AS builder
+FROM --platform=$BUILDPLATFORM rust:1.91.1-bullseye AS builder
 
 # Install build dependencies including cross-compilation toolchains
 RUN apt-get update && \

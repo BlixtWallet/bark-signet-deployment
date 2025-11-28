@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM --platform=$BUILDPLATFORM rust:1.88-bullseye AS builder
+FROM --platform=$BUILDPLATFORM rust:1.91.1-bullseye AS builder
 
 # Install build dependencies including cross-compilation toolchains
 RUN apt-get update && \
@@ -20,7 +20,7 @@ RUN apt-get update && \
 # Clone the repository and checkout the correct tag
 RUN git clone https://gitlab.com/ark-bitcoin/bark.git /app
 WORKDIR /app
-RUN git checkout server-0.1.0-beta.1
+RUN git checkout server-0.1.0-beta.4
 
 
 # Install the correct rust target and build for amd64

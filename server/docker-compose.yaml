@@ -1,7 +1,6 @@
 services:
   aspd:
-    image:
-      niteshbalusu/noah-aspd:latest
+    image: niteshbalusu/noah-aspd:latest
     volumes:
       - /home/noderunner/signet/aspd:/data/captaind
       - /home/noderunner/signet/cln:/data/cln
