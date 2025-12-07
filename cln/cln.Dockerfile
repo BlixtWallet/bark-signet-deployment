@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     dos2unix \
+    libsqlite3-0 \
     openssl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
