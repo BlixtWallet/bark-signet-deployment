@@ -1,5 +1,6 @@
 FROM docker.io/elementsproject/lightningd:v25.09.1
 
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     git \
@@ -11,38 +12,33 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     dos2unix
 
-ENV RUST_BACKTRACE=1 \
-    RUSTUP_TOOLCHAIN_VERSION=1.91.1 \
-    CLN_VERSION=25.09.1 \
-    PATH=/root/.cargo/bin:${PATH} \
-    NETWORK=regtest \
+
+ENV RUSTUP_TOOLCHAIN_VERSION=1.91.1 \
+    PATH=/root/.cargo/bin:${PATH}
+
+RUN apt-get update && apt-get install -y curl git protobuf-compiler build-essential clang libsqlite3-dev libpq-dev
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none && \
+    rustup toolchain install ${RUSTUP_TOOLCHAIN_VERSION}
+
+ARG HOLD_VERSION=v0.3.3
+
+RUN git clone https://github.com/BoltzExchange/hold.git /hold && \
+    cd /hold && \
+    git checkout ${HOLD_VERSION} && \
+    cargo build --release && \
+    cp /hold/target/release/hold /usr/local/bin/hold && \
+    chmod +x /usr/local/bin/hold && \
+    rm -rf /hold /root/.cargo /root/.rustup
+
+COPY cln_start.sh /usr/local/bin/cln_start.sh
+RUN chmod +x /usr/local/bin/cln_start.sh && dos2unix /usr/local/bin/cln_start.sh
+
+ENV NETWORK=regtest \
     BITCOIN_RPCCONNECT=bitcoind:18443 \
     BITCOIN_RPCUSER=second \
     BITCOIN_RPCPASSWORD=ark
 
-RUN apt-get update && apt-get install -y curl git protobuf-compiler build-essential clang libsqlite3-dev libpq-dev
-
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none
-RUN echo "Installing Rust toolchains version ${RUSTUP_TOOLCHAIN_VERSION}..." && \
-    rustup toolchain install ${RUSTUP_TOOLCHAIN_VERSION}
-
-RUN echo "Installing c-lightning hold invoice plugin in /hold/" && \
-    git clone https://github.com/BoltzExchange/hold.git && \
-    cd hold && \
-    git checkout 1e5dec4b479397d77c813060dd01263d689469bc && \
-    cargo build && \
-    chown root:root /hold/target/debug/hold && \
-    chmod a+x /hold/target/debug/hold
-
-RUN echo "Copy plugins to /plugins" && \
-    mkdir /plugins && \
-    cp /hold/target/debug/hold /plugins && \
-    chown root:root /plugins/hold
-
-RUN mkdir -p /root/cln/
-ADD cln_start.sh /root/cln/start.sh
-
-RUN chmod a+x /root/cln/start.sh && \
-    dos2unix /root/cln/start.sh
-
 EXPOSE 9988
+
+ENTRYPOINT ["/usr/local/bin/cln_start.sh"]
