@@ -25,6 +25,9 @@ RUN git clone https://github.com/BoltzExchange/hold.git && \
     cargo build && \
     chmod a+x /hold/target/debug/hold
 
+# Copy libsqlite3 to a known location (handles both amd64 and arm64)
+RUN mkdir -p /hold-libs && cp /usr/lib/*-linux-gnu/libsqlite3.so.0* /hold-libs/
+
 # Stage 2: Clean CLN image with only the plugin binary
 FROM docker.io/elementsproject/lightningd:v25.09.1
 
@@ -42,7 +45,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir -p /opt/hold-libs
 
 COPY --from=builder /hold/target/debug/hold /plugins/hold-bin
-COPY --from=builder /usr/lib/aarch64-linux-gnu/libsqlite3.so.0* /opt/hold-libs/
+COPY --from=builder /hold-libs/ /opt/hold-libs/
 
 # Create wrapper script that sets LD_LIBRARY_PATH only for hold plugin
 RUN echo '#!/bin/sh' > /plugins/hold && \
