@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # --- Builder stage ---
 FROM base AS builder
 ARG TARGETARCH
-ARG HOLD_VERSION=v0.2.2
+ARG HOLD_VERSION=v0.3.3
 RUN curl -sSL "https://github.com/BoltzExchange/hold/releases/download/${HOLD_VERSION}/hold-linux-${TARGETARCH}.tar.gz" | tar -xz
 RUN mv build/hold-linux-${TARGETARCH} /usr/local/bin/hold
 
