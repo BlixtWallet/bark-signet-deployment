@@ -6,7 +6,7 @@ services:
     volumes:
       - /home/noderunner/signet/bitcoin:/root/.bitcoin
       - /home/noderunner/signet/cln:/root/.lightning
-    environment: 
+    environment:
       - NETWORK=signet
       - BITCOIN_RPCCONNECT=${BITCOIN_RPCCONNECT}
       - BITCOIN_RPCUSER=${BITCOIN_RPCUSER}
