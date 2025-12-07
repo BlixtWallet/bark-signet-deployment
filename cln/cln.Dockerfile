@@ -51,7 +51,7 @@ RUN echo '#!/bin/sh' > /plugins/hold && \
     chmod a+x /plugins/hold-bin
 
 RUN mkdir -p /root/cln/
-ADD ./scripts/cln_start.sh /root/cln/start.sh
+ADD ./cln_start.sh /root/cln/start.sh
 
 RUN chmod a+x /root/cln/start.sh && \
     dos2unix /root/cln/start.sh
