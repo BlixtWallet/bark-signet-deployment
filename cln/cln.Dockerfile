@@ -53,10 +53,11 @@ RUN echo '#!/bin/sh' > /plugins/hold && \
     chmod a+x /plugins/hold && \
     chmod a+x /plugins/hold-bin
 
-RUN mkdir -p /root/cln/
-ADD ./cln_start.sh /root/cln/start.sh
+ADD ./cln_start.sh /usr/local/bin/cln_start.sh
 
-RUN chmod a+x /root/cln/start.sh && \
-    dos2unix /root/cln/start.sh
+RUN chmod a+x /usr/local/bin/cln_start.sh && \
+    dos2unix /usr/local/bin/cln_start.sh
 
 EXPOSE 9988
+
+ENTRYPOINT ["/bin/sh", "/usr/local/bin/cln_start.sh"]
