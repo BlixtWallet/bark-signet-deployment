@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     dos2unix
 
 ENV RUST_BACKTRACE=1 \
-    RUSTUP_TOOLCHAIN_VERSION=1.84 \
+    RUSTUP_TOOLCHAIN_VERSION=1.91.1 \
     CLN_VERSION=25.09.1 \
     PATH=/root/.cargo/bin:${PATH} \
     NETWORK=regtest \
